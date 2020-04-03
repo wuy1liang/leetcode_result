@@ -9,8 +9,6 @@ public class Leetcode03 {
 
     /**
      *  https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof
-     * @param nums 数组
-     * @return 数组中任意一个重复的数字
      */
     public int findRepeatNumber(int[] nums) {
         Set<Integer> set = new HashSet<>();
@@ -27,9 +25,6 @@ public class Leetcode03 {
 
     /**
      *  https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/
-     * @param matrix 二维数组
-     * @param target 目标
-     * @return 数组中是否含有目标整数
      */
     public boolean findNumberIn2DArray(int[][] matrix, int target) {
         int a = matrix.length - 1;
@@ -56,8 +51,6 @@ public class Leetcode03 {
 
     /**
      *  https://leetcode-cn.com/problems/maximum-subarray/
-     * @param nums 整数数组
-     * @return 连续子数组的最大和
      */
     public int maxSubArray(int[] nums) {
         int sum = 0;
@@ -77,9 +70,6 @@ public class Leetcode03 {
 
     /**
      *  https://leetcode-cn.com/problems/as-far-from-land-as-possible/
-     *  你现在手里有一份大小为 N x N 的『地图』（网格） grid，上面的每个『区域』（单元格）都用 0 和 1 标记好了。
-     *  其中 0 代表海洋，1 代表陆地，你知道距离陆地区域最远的海洋区域是是哪一个吗？
-     *  请返回该海洋区域到离它最近的陆地区域的距离。
      */
     public int maxDistance(int[][] grid) {
         Queue<int[]> land = new ArrayDeque<>();
@@ -137,7 +127,6 @@ public class Leetcode03 {
 
     /**
      *  https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
-     *  给定一个二叉树，原地将它展开为链表。
      */
     public void flatten(TreeNode root) {
         if (root == null) {
@@ -163,8 +152,6 @@ public class Leetcode03 {
     // TODO 未完
     /**
      *  https://leetcode-cn.com/problems/three-steps-problem-lcci/
-     *  三步问题。有个小孩正在上楼梯，楼梯有n阶台阶，小孩一次可以上1阶、2阶或3阶。
-     *  实现一种方法，计算小孩有多少种上楼梯的方式。结果可能很大，你需要对结果模1000000007。
      */
     public int waysToStep(int n) {
         return 1;
@@ -172,9 +159,6 @@ public class Leetcode03 {
 
     /**
      *  https://leetcode-cn.com/problems/combination-sum-ii/
-     * @param candidates 数组
-     * @param target 目标数
-     * @return 数组中所有可以使数字和为目标数的组合
      */
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> lists = new ArrayList<>();
