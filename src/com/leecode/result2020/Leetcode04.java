@@ -83,4 +83,30 @@ public class Leetcode04 {
 
         return result;
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/trapping-rain-water/
+     */
+    public int trap(int[] height) {
+        int result = 0;
+        int[] maxLeft = new int[height.length];
+        int[] maxRight = new int[height.length];
+
+        for (int i = 1;i < height.length - 1;i++) {
+            maxLeft[i] = Math.max(maxLeft[i - 1], height[i -1]);
+        }
+
+        for (int i = height.length -2;i >= 0;i--) {
+            maxRight[i] = Math.max(maxRight[i + 1], height[i + 1]);
+        }
+
+        for (int i = 1; i < height.length - 1; i++) {
+            int min = Math.min(maxLeft[i], maxRight[i]);
+            if (min > height[i]) {
+                result = result + min - height[i];
+            }
+        }
+
+        return result;
+    }
 }
