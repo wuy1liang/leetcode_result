@@ -1,5 +1,7 @@
 package com.leecode.result2020;
 
+import java.util.*;
+
 /**
  * @author wuyiliang
  */
@@ -109,4 +111,58 @@ public class Leetcode04 {
 
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
+     */
+    public int reversePairs(int[] nums) {
+        int count = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i; j < nums.length; j++) {
+                if (nums[i] > nums[j]) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/summary-ranges/
+     */
+    public List<String> summaryRanges(int[] nums) {
+        List<String> list = new ArrayList<>();
+        Deque<Integer> deque = new ArrayDeque<>();
+
+        for (int num : nums) {
+            if (deque.size() == 0) {
+                deque.add(num);
+                continue;
+            }
+
+            if (num == deque.peekLast() + 1) {
+                deque.add(num);
+            } else {
+                if (deque.size() == 1) {
+                    list.add(String.valueOf(deque.peek()));
+                } else {
+                    list.add(String.valueOf(deque.peekFirst()) + "->" + String.valueOf(deque.peekLast()));
+                }
+                deque.clear();
+                deque.add(num);
+            }
+        }
+
+        if (deque.size() == 1) {
+            list.add(String.valueOf(deque.peek()));
+        } else if (deque.size() > 1) {
+            list.add(String.valueOf(deque.peekFirst()) + "->" + String.valueOf(deque.peekLast()));
+        }
+
+        return list;
+    }
+
+    
 }
