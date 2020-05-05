@@ -1,6 +1,6 @@
 package com.leecode.result2020;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * @author wuyiliang
@@ -108,9 +108,108 @@ public class LeetCode05 {
     }
 
     /**
+     *  https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies/
+     */
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        List<Boolean> result = new ArrayList<>();
+        int max = Arrays.stream(candies).max().getAsInt();
+        for (int candy : candies) {
+            result.add(candy + extraCandies >= max);
+        }
+        return result;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
+     */
+    public String reverseLeftWords(String s, int n) {
+        return s.substring(n) + s.substring(0, n);
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/count-number-of-teams/
+     */
+    public int numTeams(int[] rating) {
+        int res = 0;
+
+        for (int i = 1; i < rating.length - 1; i++) {
+            int left1 = 0;
+            int left2 = 0;
+            int right1 = 0;
+            int right2 = 0;
+
+            for (int j = 0; j < i; j++) {
+                if (rating[j] > rating[i]) {
+                    left1++;
+                } else if (rating[j] < rating[i]) {
+                    left2++;
+                }
+            }
+
+            for (int j = i + 1; j < rating.length; j++) {
+                if (rating[j] > rating[i]) {
+                    right1++;
+                } else if (rating[j] < rating[i]) {
+                    right2++;
+                }
+            }
+
+            res = res + left1*right2 + left2*right1;
+        }
+
+        return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/validate-binary-search-tree/
+     */
+    double last = -Double.MAX_VALUE;
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        if (isValidBST(root.left)) {
+            if (last < root.val) {
+                last = root.val;
+                return isValidBST(root.right);
+            }
+        }
+        return false;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+     */
+    public int lengthOfLongestSubstring(String s) {
+        int res = 0;
+        if (s.length() == 0) {
+            return res;
+        }
+        Map<Character, Integer> map = new HashMap<>(s.length());
+        char[] chars = s.toCharArray();
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (map.containsKey(chars[i])) {
+                start = Math.max(map.get(chars[i])+1, start);
+            }
+            map.put(chars[i], i);
+            end = i;
+            res = Math.max(res, end - start + 1);
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        LeetCode05 leetCode05 = new LeetCode05();
+        leetCode05.lengthOfLongestSubstring("au");
+    }
+
+    /**
      *  https://leetcode-cn.com/problems/stone-game/
      */
     public boolean stoneGame(int[] piles) {
+
         //TODO
         return false;
     }
