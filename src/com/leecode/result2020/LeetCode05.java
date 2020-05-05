@@ -50,7 +50,68 @@ public class LeetCode05 {
      *  https://leetcode-cn.com/problems/matrix-block-sum/
      */
     public int[][] matrixBlockSum(int[][] mat, int K) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int[][] prefix = new int[m+1][n+1];
+        int[][] result = new int[m][n];
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                prefix[i][j] = mat[i-1][j-1] + prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
+            }
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                int x1 = i - K - 1 >= 0? i - K - 1: 0;
+                int y1 = j - K - 1 >= 0? j - K - 1: 0;
+                int x2 = i + K <= m? i + K: m;
+                int y2 = j + K <= n? j + K: n;
+                result[i-1][j-1] = prefix[x2][y2] + prefix[x1][y1] - prefix[x2][y1] - prefix[x1][y2];
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/
+     */
+    public int maxSideLength(int[][] mat, int threshold) {
+        int m = mat.length;
+        int n = mat[0].length;
+        int[][] prefix = new int[m+1][n+1];
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                prefix[i][j] = mat[i-1][j-1] + prefix[i-1][j] + prefix[i][j-1] - prefix[i-1][j-1];
+            }
+        }
+
+        int result = 0;
+        int max = Math.min(m, n);
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+               for (int k = result + 1; k <= max; k++) {
+                   if (i + k -1 <= m && j + k - 1 <= n) {
+                       int sum = prefix[i+k-1][j+k-1] + prefix[i-1][j-1] - prefix[i+k-1][j-1] - prefix[i-1][j+k-1];
+                       if (sum <= threshold){
+                           result++;
+                           continue;
+                       }
+                   }
+                   break;
+               }
+            }
+        }
+        return result;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/stone-game/
+     */
+    public boolean stoneGame(int[] piles) {
         //TODO
-        return null;
+        return false;
     }
 }
