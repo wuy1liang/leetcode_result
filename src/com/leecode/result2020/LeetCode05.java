@@ -200,9 +200,59 @@ public class LeetCode05 {
         return res;
     }
 
-    public static void main(String[] args) {
-        LeetCode05 leetCode05 = new LeetCode05();
-        leetCode05.lengthOfLongestSubstring("au");
+    /**
+     *  https://leetcode-cn.com/problems/minimum-cost-for-tickets/
+     */
+    public int mincostTickets(int[] days, int[] costs) {
+        int lastDay = days[days.length - 1];
+        int[] res = new int[lastDay + 1];
+        int curDay = 1;
+        for (int day : days) {
+            while (curDay < day) {
+                res[curDay] = res[curDay - 1];
+                curDay++;
+            }
+            int min = res[curDay - 1] + costs[0];
+            if (curDay >= 7) {
+                min = Math.min(min, res[curDay - 7] + costs[1]);
+            } else {
+                min = Math.min(min, costs[1]);
+            }
+            if (curDay >= 30) {
+                min = Math.min(min, res[curDay - 30] + costs[2]);
+            } else {
+                min = Math.min(min, costs[2]);
+            }
+            res[curDay] = min;
+            curDay++;
+        }
+        return res[res.length - 1];
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/longest-palindromic-substring/
+     */
+    public String longestPalindrome(String s) {
+        if ("".equals(s)) {
+            return "";
+        }
+        String s1 = new StringBuilder(s).reverse().toString();
+        int length = s.length();
+        int size = 0;
+        int end = 0;
+        int[][] dp = new int[length+1][length+1];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                if (s.charAt(i) == s1.charAt(j)) {
+                    dp[i+1][j+1] = dp[i][j] + 1;
+                }
+                if (dp[i+1][j+1] > size && length -1 - j + dp[i+1][j+1] -1 == i) {
+                    size = dp[i+1][j+1];
+                    end = i;
+                }
+            }
+        }
+        return s.substring(end - size + 1, end + 1);
     }
 
     /**
