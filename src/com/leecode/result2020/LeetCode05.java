@@ -256,6 +256,73 @@ public class LeetCode05 {
     }
 
     /**
+     *  https://leetcode-cn.com/problems/subtree-of-another-tree/
+     */
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if (s == null) {
+            return false;
+        }
+        return isSubtree(s.left, t) || isSubtree(s.right, t) || isSametree(s, t);
+    }
+
+    private boolean isSametree(TreeNode s, TreeNode t) {
+        if (s == null && t == null) {
+            return true;
+        } else if (s != null && t != null) {
+            return s.val == t.val && isSametree(s.left, t.left) && isSametree(s.right, t.right);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/count-negative-numbers-in-a-sorted-matrix/
+     */
+    public int countNegatives(int[][] grid) {
+        int res = 0;
+        int last = grid[0].length - 1;
+        for (int[] aGrid : grid) {
+            int j;
+            for (j = last; j >= 0; j--) {
+                if (aGrid[j] >= 0) {
+                    if (j + 1 < aGrid.length) {
+                        res += aGrid.length - j - 1;
+                        last = j + 1;
+                    }
+                    break;
+                }
+            }
+            if (j == -1) {
+                res += aGrid.length;
+            }
+        }
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/peak-index-in-a-mountain-array/
+     */
+    public int peakIndexInMountainArray(int[] A) {
+        int index = 0;
+        int left = 0;
+        int right = A.length - 1;
+
+        while (right > left) {
+            int mid = left + (right - left) / 2;
+            if (A[mid + 1] < A[mid] && A[mid - 1] < A[mid]) {
+                index = mid;
+                break;
+            } else if (A[mid + 1] > A[mid]) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+
+        return index;
+    }
+
+    /**
      *  https://leetcode-cn.com/problems/stone-game/
      */
     public boolean stoneGame(int[] piles) {
