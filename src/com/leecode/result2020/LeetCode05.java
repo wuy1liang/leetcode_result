@@ -323,6 +323,102 @@ public class LeetCode05 {
     }
 
     /**
+     *  https://leetcode-cn.com/problems/maximal-square/
+     */
+    public int maximalSquare(char[][] matrix) {
+        int res = 0;
+        int n = matrix.length;
+        if (n == 0) {
+            return 0;
+        }
+        int m = matrix[0].length;
+        int[][] dp = new int[n+1][m+1];
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (matrix[i-1][j-1] == '1') {
+                    int min = Math.min(dp[i-1][j-1], dp[i-1][j]);
+                    min = Math.min(min, dp[i][j-1]);
+                    dp[i][j] = min + 1;
+
+                    if (dp[i][j] > res) {
+                        res = dp[i][j];
+                    }
+                }
+            }
+        }
+
+        return res * res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/missing-number/
+     */
+    public int missingNumber(int[] nums) {
+        int res = 0;
+
+        for (int i = 1; i <= nums.length; i++) {
+            res = res + i - nums[i-1];
+        }
+
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/sorted-matrix-search-lcci/
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        if (m == 0) {
+            return false;
+        }
+        int n = matrix[0].length;
+        int x = m - 1;
+        int y = 0;
+
+        while (x >= 0 && x < m && y >=0 && y < n) {
+            if (matrix[x][y] == target) {
+                return true;
+            } else if (matrix[x][y] > target) {
+                x--;
+            } else {
+                y++;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/check-if-n-and-its-double-exist/
+     */
+    public boolean checkIfExist(int[] arr) {
+        Set<Integer> set = new HashSet<>();
+        for (int i : arr) {
+            if (set.contains(i*2) || (i%2 == 0 && set.contains(i/2))) {
+                return true;
+            } else {
+                set.add(i);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/distribute-candies/
+     */
+    public int distributeCandies(int[] candies) {
+        Arrays.sort(candies);
+        int res = 1;
+        for (int i = 1; i < candies.length && res < candies.length/2; i++) {
+            if (candies[i] > candies[i-1]) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
      *  https://leetcode-cn.com/problems/stone-game/
      */
     public boolean stoneGame(int[] piles) {
