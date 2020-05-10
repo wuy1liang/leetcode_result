@@ -419,6 +419,90 @@ public class LeetCode05 {
     }
 
     /**
+     *  https://leetcode-cn.com/problems/sqrtx/
+     */
+    public int mySqrt(int x) {
+        int res = 0;
+        int left = 0;
+        int right = x;
+
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if ((long)mid*mid <= x) {
+                res = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/count-square-submatrices-with-all-ones/
+     */
+    public int countSquares(int[][] matrix) {
+        int m = matrix.length;
+        if (m == 0) {
+            return 0;
+        }
+        int n = matrix[0].length;
+        int res = 0;
+        int[][] dp = new int[m+1][n+1];
+
+        for (int i = 1; i < m + 1; i++) {
+            for (int j = 1; j < n + 1; j++) {
+                if (matrix[i-1][j-1] == 0) {
+                    dp[i][j] = 0;
+                } else {
+                    int min = Math.min(dp[i-1][j-1], dp[i][j-1]);
+                    dp[i][j] = Math.min(min, dp[i-1][j]) + 1;
+                    res += dp[i][j];
+                }
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/minimum-path-sum/
+     */
+    public int minPathSum(int[][] grid) {
+        int m = grid.length;
+        if (m == 0) {
+            return 0;
+        }
+        int n = grid[0].length;
+        int[][] dp = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int min = 0;
+                if (i - 1 < 0 && j -1 >= 0) {
+                    min = dp[i][j-1];
+                } else if (i - 1 >= 0 && j -1 < 0) {
+                    min = dp[i-1][j];
+                } else if (i - 1 >= 0) {
+                    min = Math.min(dp[i][j-1], dp[i-1][j]);
+                }
+                dp[i][j] = grid[i][j] + min;
+            }
+        }
+
+        return dp[m-1][n-1];
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+     */
+    public int maxProfit(int[] prices, int fee) {
+        //TODO
+        return 0;
+    }
+
+    /**
      *  https://leetcode-cn.com/problems/stone-game/
      */
     public boolean stoneGame(int[] piles) {
