@@ -164,5 +164,27 @@ public class Leetcode04 {
         return list;
     }
 
+    /**
+     * https://leetcode-cn.com/problems/search-a-2d-matrix/
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int i = matrix.length - 1;
+        if (matrix.length == 0) {
+            return false;
+        }
+        int j = 0;
+
+        while (i >= 0 && i < matrix.length && j >= 0 && j < matrix[0].length) {
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] > target) {
+                i--;
+            } else {
+                j++;
+            }
+        }
+
+        return false;
+    }
     
 }
