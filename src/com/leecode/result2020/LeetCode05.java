@@ -529,11 +529,110 @@ public class LeetCode05 {
     }
 
     /**
+     *  https://leetcode-cn.com/problems/container-with-most-water/
+     */
+    public int maxArea(int[] height) {
+        int res = 0;
+        int i = 0;
+        int j = height.length - 1;
+
+        while (i < j) {
+            if (height[i] > height[j]) {
+                res = Math.max(res, (j - i) * height[j]);
+                j--;
+            } else {
+                res = Math.max(res, (j - i) * height[i]);
+                i++;
+            }
+        }
+
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/rotting-oranges/
+     */
+    public int orangesRotting(int[][] grid) {
+        Queue<int[]> queue = new ArrayDeque<>();
+        int res = 0;
+        int num = 0;
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][] direction = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 2) {
+                    queue.offer(new int[]{i, j});
+                } else if (grid[i][j] == 1) {
+                    num++;
+                }
+            }
+        }
+
+        while (!queue.isEmpty() && num > 0) {
+            res++;
+            int count = queue.size();
+            for (int i = 0; i < count; i++) {
+                int[] e = queue.poll();
+                for (int[] aDirection : direction) {
+                    int x = e[0] + aDirection[0];
+                    int y = e[1] + aDirection[1];
+                    if (x >= 0 && x < n && y >= 0 && y < m && grid[x][y] == 1) {
+                        grid[x][y] = 2;
+                        queue.offer(new int[]{x, y});
+                        num--;
+                    }
+                }
+            }
+        }
+
+        return num > 0? -1: res;
+    }
+
+    /**
      *  https://leetcode-cn.com/problems/stone-game/
      */
     public boolean stoneGame(int[] piles) {
 
         //TODO
         return false;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/min-stack/
+     */
+    class MinStack {
+
+        private Stack<Integer> stack;
+        private Stack<Integer> min;
+
+        /** initialize your data structure here. */
+        public MinStack() {
+            this.stack = new Stack<>();
+            this.min = new Stack<>();
+        }
+
+        public void push(int x) {
+            stack.push(x);
+            if (min.empty() || x < min.peek()) {
+                min.push(x);
+            } else {
+                min.push(min.peek());
+            }
+        }
+
+        public void pop() {
+            stack.pop();
+            min.pop();
+        }
+
+        public int top() {
+            return stack.peek();
+        }
+
+        public int getMin() {
+            return min.peek();
+        }
     }
 }
