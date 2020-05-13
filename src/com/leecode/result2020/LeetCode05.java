@@ -591,6 +591,79 @@ public class LeetCode05 {
     }
 
     /**
+     *  https://leetcode-cn.com/problems/single-number/
+     */
+    public int singleNumber(int[] nums) {
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            res ^= nums[i];
+        }
+        return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode start = new ListNode(0);
+        start.next = head;
+        ListNode cur = start;
+
+        while (cur.next != null && cur.next.next != null) {
+            if (cur.next.next.val == cur.next.val) {
+                ListNode temp = cur.next;
+                while (temp.next != null && temp.val == temp.next.val) {
+                    temp = temp.next;
+                }
+                cur.next = temp.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+
+        return start.next;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/spiral-matrix-ii/
+     */
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int left = 0;
+        int right = n - 1;
+        int top = 0;
+        int bot = n - 1;
+        int num = 1;
+        while (num <= n*n) {
+            for (int i = left; i <= right; i++) {
+                res[top][i] = num;
+                num++;
+            }
+            top++;
+
+            for (int i = top; i <= bot; i++) {
+                res[i][right] = num;
+                num++;
+            }
+            right--;
+
+            for (int i = right; i >= left; i--) {
+                res[bot][i] = num;
+                num++;
+            }
+            bot--;
+
+            for (int i = bot; i >= top; i--) {
+                res[i][left] = num;
+                num++;
+            }
+            left++;
+        }
+
+        return res;
+    }
+
+    /**
      *  https://leetcode-cn.com/problems/stone-game/
      */
     public boolean stoneGame(int[] piles) {
