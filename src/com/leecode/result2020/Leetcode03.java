@@ -148,21 +148,4 @@ public class Leetcode03 {
             flatten(root.right);
         }
     }
-
-    // TODO 未完
-    /**
-     *  https://leetcode-cn.com/problems/three-steps-problem-lcci/
-     */
-    public int waysToStep(int n) {
-        return 1;
-    }
-
-    /**
-     *  https://leetcode-cn.com/problems/combination-sum-ii/
-     */
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> lists = new ArrayList<>();
-
-        return lists;
-    }
 }
