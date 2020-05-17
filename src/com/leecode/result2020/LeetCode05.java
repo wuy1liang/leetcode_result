@@ -745,4 +745,90 @@ public class LeetCode05 {
         }
         return true;
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/number-of-students-doing-homework-at-a-given-time/
+     */
+    public int busyStudent(int[] startTime, int[] endTime, int queryTime) {
+        int res = 0;
+        for (int i = 0; i < startTime.length; i++) {
+            if (queryTime >= startTime[i] && queryTime <= endTime[i]) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/qiu-12n-lcof/
+     */
+    public int sumNums(int n) {
+        return (n + 1) * n /2;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/guess-numbers/
+     */
+    public int game(int[] guess, int[] answer) {
+        int res = 0;
+        for (int i = 0; i < 3; i++) {
+            if (guess[i] == answer[i]) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/delete-middle-node-lcci/
+     */
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/number-of-steps-to-reduce-a-number-to-zero/
+     */
+    public int numberOfSteps (int num) {
+        int res = 0;
+        if (num == 0) {
+            return 0;
+        }
+        while (num > 1) {
+            if ((num & 1) == 1) {
+                res += 2;
+            } else {
+                res++;
+            }
+            num >>= 1;
+        }
+
+        return res + 1;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/jewels-and-stones/
+     */
+    public int numJewelsInStones(String J, String S) {
+        Set<Character> set = new HashSet<>();
+        for (char c : J.toCharArray()) {
+            set.add(c);
+        }
+        int res = 0;
+        for (char c : S.toCharArray()) {
+            if (set.contains(c)) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/defanging-an-ip-address/
+     */
+    public String defangIPaddr(String address) {
+        return address.replace(".", "[.]");
+    }
+
 }
