@@ -831,4 +831,24 @@ public class LeetCode05 {
         return address.replace(".", "[.]");
     }
 
+    /**
+     *  https://leetcode-cn.com/problems/maximum-product-subarray/
+     */
+    public int maxProduct(int[] nums) {
+        int res = nums[0];
+        int min = 1;
+        int max = 1;
+        for (int num : nums) {
+            if (num < 0) {
+                int temp = min;
+                min = max;
+                max = temp;
+            }
+
+            max = Math.max(max * num, num);
+            min = Math.min(min * num, num);
+            res = Math.max(max, res);
+        }
+        return res;
+    }
 }
