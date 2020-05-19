@@ -851,4 +851,61 @@ public class LeetCode05 {
         }
         return res;
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/valid-palindrome-ii/
+     */
+    public boolean validPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        while (right > left) {
+            if (s.charAt(right) != s.charAt(left)) {
+                int r = right - 1;
+                int l = left;
+                boolean flag1 = true;
+                boolean flag2 = true;
+                while (r > l) {
+                    if (s.charAt(r) != s.charAt(l)) {
+                        flag1 = false;
+                        break;
+                    }
+                    r--;
+                    l++;
+                }
+                r = right;
+                l = left + 1;
+                while (r > l) {
+                    if (s.charAt(r) != s.charAt(l)) {
+                        flag2 = false;
+                        break;
+                    }
+                    r--;
+                    l++;
+                }
+                return flag1 || flag2;
+            }
+            right--;
+            left++;
+        }
+
+        return true;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/
+     */
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        int res = 0;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[j] != nums[res]) {
+                res++;
+                nums[res] = nums[j];
+            }
+        }
+        return res + 1;
+    }
 }
