@@ -908,4 +908,45 @@ public class LeetCode05 {
         }
         return res + 1;
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/integer-to-roman/
+     */
+    public String intToRoman(int num) {
+        StringBuilder res = new StringBuilder();
+        String[] str = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] val = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+
+        for (int i = 0; i < val.length; i++) {
+            if (num >= val[i]) {
+                for (int j = 0; j < num / val[i]; j++) {
+                    res.append(str[i]);
+                }
+                num %= val[i];
+            }
+        }
+
+        return res.toString();
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/distance-between-bus-stops/
+     */
+    public int distanceBetweenBusStops(int[] distance, int start, int destination) {
+        int res = 0;
+        int count = 0;
+        if (destination < start) {
+            start = destination + start;
+            destination = start - destination;
+            start = start - destination;
+        }
+        for (int i = 0; i < distance.length; i++) {
+            count += distance[i];
+            if (i >= start && i < destination) {
+                res += distance[i];
+            }
+        }
+
+        return res > count - res? count - res: res;
+    }
 }
