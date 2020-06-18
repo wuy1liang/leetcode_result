@@ -59,4 +59,43 @@ public class LeetCode06 {
 
         return res;
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/running-sum-of-1d-array/
+     */
+    public int[] runningSum(int[] nums) {
+        int[] res = new int[nums.length];
+        res[0] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            res[i] = res[i-1] + nums[i];
+        }
+        return res;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/shuffle-the-array/
+     */
+    public int[] shuffle(int[] nums, int n) {
+        int[] res = new int[2*n];
+        for (int i = 0; i < nums.length; i++) {
+            if (i % 2 == 0) {
+                res[i] = nums[i/2];
+            } else {
+                res[i] = nums[n + i/2];
+            }
+        }
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/subtract-the-product-and-sum-of-digits-of-an-integer/
+     */
+    public int subtractProductAndSum(int n) {
+        int sum1 = n % 10;
+        int sum2 = n % 10;
+        while (n/10 > 0) {
+            n = n/10;
+        }
+        return sum1 - sum2;
+    }
 }
