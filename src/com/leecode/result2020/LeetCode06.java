@@ -95,6 +95,8 @@ public class LeetCode06 {
         int sum2 = n % 10;
         while (n/10 > 0) {
             n = n/10;
+            sum1 *= n %10;
+            sum2 += n % 10;
         }
         return sum1 - sum2;
     }
