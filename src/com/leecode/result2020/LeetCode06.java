@@ -100,4 +100,26 @@ public class LeetCode06 {
         }
         return sum1 - sum2;
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/max-increase-to-keep-city-skyline/comments/
+     */
+    public int maxIncreaseKeepingSkyline(int[][] grid) {
+        int length = grid.length;
+        int[] rows = new int[length];
+        int[] cols = new int[length];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                rows[i] = Math.max(rows[i], grid[i][j]);
+                cols[j] = Math.max(cols[j], grid[i][j]);
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                res += Math.min(cols[j], rows[i]) - grid[i][j];
+            }
+        }
+        return res;
+    }
 }
