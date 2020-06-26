@@ -1,5 +1,8 @@
 package com.leecode.result2020;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author wuyiliang
  */
@@ -119,6 +122,51 @@ public class LeetCode06 {
             for (int j = 0; j < length; j++) {
                 res += Math.min(cols[j], rows[i]) - grid[i][j];
             }
+        }
+        return res;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/remove-duplicate-node-lcci/
+     */
+    public ListNode removeDuplicateNodes(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        Set<Integer> set = new HashSet<>();
+        set.add(head.val);
+        ListNode left = head;
+        ListNode right = head.next;
+        while (right.next != null) {
+            if (set.contains(right.val)) {
+                left.next = right.next;
+                right = right.next;
+            } else {
+                set.add(right.val);
+                left = left.next;
+                right = right.next;
+            }
+        }
+        return head;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/squares-of-a-sorted-array/
+     */
+    public int[] sortedSquares(int[] A) {
+        int left = 0;
+        int right = A.length - 1;
+        int index = A.length - 1;
+        int[] res = new int[A.length];
+        while (right >= left) {
+            if (A[left]*A[left] <= A[right]*A[right]) {
+                res[index] = A[right]*A[right];
+                right--;
+            } else {
+                res[index] = A[left]*A[left];
+                left++;
+            }
+            index--;
         }
         return res;
     }
