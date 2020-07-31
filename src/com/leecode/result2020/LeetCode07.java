@@ -1,6 +1,8 @@
 package com.leecode.result2020;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
+import java.util.function.IntConsumer;
 
 /**
  * @author wuyiliang
@@ -328,5 +330,68 @@ public class LeetCode07 {
             }
         }
         return true;
+    }
+
+    /**
+     *  https://leetcode-cn.com/problems/magic-index-lcci/
+     */
+    public int findMagicIndex(int[] nums) {
+        int index = 0;
+        while (index < nums.length) {
+            if (nums[index] == index) {
+                return index;
+            } else {
+                if (nums[index] > 0) {
+                    index = nums[index];
+                } else {
+                    index++;
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/print-zero-even-odd/
+     */
+    class ZeroEvenOdd {
+        private int n;
+
+        private Semaphore ze = new Semaphore(1);
+        private Semaphore ev = new Semaphore(0);
+        private Semaphore od = new Semaphore(0);
+
+        public ZeroEvenOdd(int n) {
+            this.n = n;
+        }
+
+        // printNumber.accept(x) outputs "x", where x is an integer.
+        public void zero(IntConsumer printNumber) throws InterruptedException {
+            for (int i = 0; i < n; i++) {
+                ze.acquire();
+                printNumber.accept(0);
+                if (i % 2 == 0) {
+                    od.release();
+                } else {
+                    ev.release();
+                }
+            }
+        }
+
+        public void even(IntConsumer printNumber) throws InterruptedException {
+            for(int i = 2;i <= n;i += 2){
+                ev.acquire();
+                printNumber.accept(i);
+                ze.release();
+            }
+        }
+
+        public void odd(IntConsumer printNumber) throws InterruptedException {
+            for(int i = 1;i <= n;i += 2){
+                od.acquire();
+                printNumber.accept(i);
+                ze.release();
+            }
+        }
     }
 }
