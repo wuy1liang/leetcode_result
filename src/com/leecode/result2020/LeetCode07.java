@@ -394,4 +394,37 @@ public class LeetCode07 {
             }
         }
     }
+
+    /**
+     *  https://leetcode-cn.com/problems/largest-1-bordered-square/
+     */
+    public int largest1BorderedSquare(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][][] dp = new int[n+1][m+1][2];
+        int res = 0;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (grid[i - 1][j - 1] == 0) {
+                    dp[i][j][0] = 0;
+                    dp[i][j][1] = 0;
+                } else {
+                    dp[i][j][0] = dp[i][j - 1][0] + 1;
+                    dp[i][j][1] = dp[i - 1][j][1] + 1;
+
+                    int d = Math.min(dp[i][j - 1][0], dp[i - 1][j][1]);
+                    while(d > 0){
+                        if(dp[i][j - d][1]  > d &&  dp[i - d][j][0] > d) {
+                            break;
+                        }
+                        d--;
+                    }
+                    res = Math.max(res, d + 1);
+                }
+            }
+        }
+
+        return res*res;
+    }
 }
