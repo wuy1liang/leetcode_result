@@ -1,4 +1,6 @@
-package com.leecode.result2020;
+package com.leecode._2020;
+
+import com.leecode.common.ListNode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,7 +8,7 @@ import java.util.Set;
 /**
  * @author wuyiliang
  */
-public class LeetCode06 {
+public class June {
 
     /**
      *  https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/

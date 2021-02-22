@@ -1,11 +1,13 @@
-package com.leecode.result2020;
+package com.leecode._2020;
+
+import com.leecode.common.TreeNode;
 
 import java.util.*;
 
 /**
  * @author wuyiliang
  */
-public class Leetcode03 {
+public class March {
 
     /**
      *  https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof

@@ -1,4 +1,6 @@
-package com.leecode.result2020;
+package com.leecode._2020;
+
+import com.leecode.common.TreeNode;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -7,7 +9,7 @@ import java.util.function.IntConsumer;
 /**
  * @author wuyiliang
  */
-public class LeetCode07 {
+public class July {
 
     /**
      *  https://leetcode-cn.com/problems/path-sum/

@@ -1,11 +1,11 @@
-package com.leecode.result2020;
+package com.leecode._2020;
 
 import java.util.*;
 
 /**
  * @author wuyiliang
  */
-public class Leetcode04 {
+public class April {
 
     /**
      *  https://leetcode-cn.com/problems/game-of-life/

@@ -1,11 +1,14 @@
-package com.leecode.result2020;
+package com.leecode._2020;
+
+import com.leecode.common.ListNode;
+import com.leecode.common.TreeNode;
 
 import java.util.*;
 
 /**
  * @author wuyiliang
  */
-public class LeetCode05 {
+public class May {
 
     /**
      * https://leetcode-cn.com/problems/counting-bits/

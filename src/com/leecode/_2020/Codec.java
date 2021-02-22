@@ -1,4 +1,4 @@
-package com.leecode.result2020;
+package com.leecode._2020;
 
 /**
  *  https://leetcode-cn.com/problems/encode-and-decode-tinyurl/
