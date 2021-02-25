@@ -1,5 +1,7 @@
 package com.leecode._2021;
 
+import java.util.List;
+
 /**
  * @author wuyiliang
  * @date 2021/2/22 11:34
@@ -39,5 +41,12 @@ public class February {
         }
 
         return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/subsets/
+     */
+    public List<List<Integer>> subsets(int[] nums) {
+
     }
 }
