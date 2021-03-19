@@ -57,7 +57,6 @@ public class March {
         }
         return dp[len - 1];
     }
-
     public boolean isPalindrome(String str) {
         if (str == null || str.length() <= 1) {
             return true;
@@ -77,6 +76,51 @@ public class March {
      */
     public ListNode reverseBetween(ListNode head, int left, int right) {
         ListNode start = new ListNode(0);
-        return start;
+        start.next = head;
+        ListNode pre = start;
+        for (int i = 1; i < left; i++) {
+            pre = pre.next;
+        }
+        head = pre.next;
+        for(int i = left; i < right; i++){
+            ListNode nex = head.next;
+            head.next = nex.next;
+            nex.next = pre.next;
+            pre.next = nex;
+        }
+        return start.next;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-linked-list/
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode curr = head;
+        ListNode pre = null;
+        while (curr != null) {
+            ListNode tmp = curr.next;
+            curr.next = pre;
+            pre = curr;
+            curr = tmp;
+        }
+        return pre;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/design-parking-system/
+     */
+    class ParkingSystem {
+        int[] car;
+        public ParkingSystem(int big, int medium, int small) {
+            this.car = new int[]{big, medium, small};
+        }
+        public boolean addCar(int carType) {
+            if (car[carType - 1] > 0) {
+                car[carType - 1]--;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }
