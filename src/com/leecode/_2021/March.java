@@ -2,7 +2,9 @@ package com.leecode._2021;
 
 import com.leecode.common.ListNode;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * @author wuyiliang
@@ -78,5 +80,34 @@ public class March {
     public ListNode reverseBetween(ListNode head, int left, int right) {
         ListNode start = new ListNode(0);
         return start;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/
+     */
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> deque = new ArrayDeque<>(tokens.length);
+        for (String token : tokens) {
+            switch (token) {
+                case "+":
+                    deque.addLast(deque.removeLast() + deque.removeLast());
+                    break;
+                case "-":
+                    deque.addLast(-(deque.removeLast() - deque.removeLast()));
+                    break;
+                case "*":
+                    deque.addLast(deque.removeLast() * deque.removeLast());
+                    break;
+                case "/":
+                    Integer b = deque.removeLast();
+                    Integer a = deque.removeLast();
+                    deque.addLast(a / b);
+                    break;
+                default:
+                    deque.addLast(Integer.valueOf(token));
+                    break;
+            }
+        }
+        return deque.removeLast();
     }
 }
