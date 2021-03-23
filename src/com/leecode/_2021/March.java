@@ -1,11 +1,9 @@
 package com.leecode._2021;
 
 import com.leecode.common.ListNode;
+import com.leecode.common.NestedInteger;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * @author wuyiliang
@@ -212,5 +210,41 @@ public class March {
             result++;
         }
         return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/flatten-nested-list-iterator/
+     */
+    public class NestedIterator implements Iterator<Integer> {
+
+        Iterator<Integer> iterator;
+
+        public NestedIterator(List<NestedInteger> nestedList) {
+            List<Integer> list = new ArrayList<>();
+            for (NestedInteger nestedInteger : nestedList) {
+                addInteger(nestedInteger, list);
+            }
+            this.iterator = list.iterator();
+        }
+
+        private void addInteger(NestedInteger nestedInteger, List<Integer> list) {
+            if (nestedInteger.isInteger()) {
+                list.add(nestedInteger.getInteger());
+            } else {
+                for (NestedInteger nested : nestedInteger.getList()) {
+                    addInteger(nested, list);
+                }
+            }
+        }
+
+        @Override
+        public Integer next() {
+            return this.iterator.next();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return this.iterator.hasNext();
+        }
     }
 }
