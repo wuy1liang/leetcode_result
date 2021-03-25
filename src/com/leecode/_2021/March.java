@@ -266,4 +266,34 @@ public class March {
         }
         return false;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode start = new ListNode();
+        start.next = head;
+        ListNode pre = start;
+        ListNode cur = start.next;
+        boolean flag = false;
+        while (cur != null && cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur = cur.next;
+                flag = true;
+            } else {
+                if (flag) {
+                    pre.next = cur.next;
+                    cur = cur.next;
+                    flag = false;
+                } else {
+                    pre = cur;
+                    cur = cur.next;
+                }
+            }
+        }
+        if (flag) {
+            pre.next = null;
+        }
+        return start.next;
+    }
 }
