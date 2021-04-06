@@ -33,4 +33,22 @@ public class April {
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/
+     */
+    public int removeDuplicates(int[] nums) {
+        int len = nums.length;
+        if (len <= 2) {
+            return len;
+        }
+        int left = 2;
+        for (int i = 2; i < len; i++) {
+            if (nums[left - 2] != nums[i]) {
+                nums[left] = nums[i];
+                left++;
+            }
+        }
+        return left;
+    }
 }
