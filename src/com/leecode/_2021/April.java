@@ -1,5 +1,8 @@
 package com.leecode._2021;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author wuyiliang
  * @date 2021/4/2 10:52
@@ -50,5 +53,109 @@ public class April {
             }
         }
         return left;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/
+     */
+    public boolean search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right)/2;
+            if (nums[mid] == target) {
+                return true;
+            }
+            if (nums[left] == nums[mid] && nums[right] == nums[mid]) {
+                left++;
+                right--;
+                continue;
+            }
+            if (nums[mid] >= nums[left]) {
+                if (target < nums[mid] && target >= nums[left]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            } else {
+                if (target > nums[mid] && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/lru-cache/
+     */
+    class LRUCache {
+        int size;
+        int capacity;
+        Node head;
+        Node tail;
+        Map<Integer, Node> map;
+
+        public LRUCache(int capacity) {
+            this.size = 0;
+            this.capacity = capacity;
+            this.head = new Node();
+            this.tail = new Node();
+            this.head.next = this.tail;
+            this.tail.pre = this.head;
+            this.map = new HashMap<>();
+        }
+
+        public int get(int key) {
+            Node node = this.map.get(key);
+            if (node == null) {
+                return -1;
+            }
+            put(key, node.val);
+            return node.val;
+        }
+
+        public void put(int key, int value) {
+            Node node = this.map.get(key);
+            if (node != null) {
+                remove(node);
+            }
+            if (this.size == this.capacity) {
+                Node lastNode = this.tail.pre;
+                remove(lastNode);
+            }
+            node = new Node();
+            node.key = key;
+            node.val = value;
+            addFirst(node);
+        }
+
+        private void addFirst(Node node) {
+            Node next = this.head.next;
+            this.head.next = node;
+            node.next = next;
+            next.pre = node;
+            node.pre = this.head;
+            this.size++;
+            this.map.put(node.key, node);
+        }
+
+        private void remove(Node node) {
+            Node pre = node.pre;
+            Node next = node.next;
+            pre.next = next;
+            next.pre = pre;
+            this.size--;
+            this.map.remove(node.key);
+        }
+
+        private class Node {
+            int key;
+            int val;
+            Node pre;
+            Node next;
+        }
     }
 }
