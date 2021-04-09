@@ -1,5 +1,7 @@
 package com.leecode._2021;
 
+import com.leecode.common.ListNode;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -156,6 +158,39 @@ public class April {
             int val;
             Node pre;
             Node next;
+        }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/
+     */
+    public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (nums[right] < nums[mid]) {
+                left = mid + 1;
+            } else if (nums[right] > nums[mid]){
+                right = mid;
+            } else {
+                right = right - 1;
+            }
+        }
+        return nums[left];
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+     */
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (k == 1) {
+            return head;
+        }
+        int tmp = k;
+        ListNode cur = head;
+        for (;;) {
+
         }
     }
 }
