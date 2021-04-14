@@ -1,9 +1,6 @@
 package com.leecode._2021;
 
-import com.leecode.common.ListNode;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author wuyiliang
@@ -181,16 +178,107 @@ public class April {
     }
 
     /**
-     * https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+     * https://leetcode-cn.com/problems/implement-trie-prefix-tree/
      */
-    public ListNode reverseKGroup(ListNode head, int k) {
-        if (k == 1) {
-            return head;
-        }
-        int tmp = k;
-        ListNode cur = head;
-        for (;;) {
+    class Trie {
+        CharNode head;
+        Set<String> set;
 
+        private CharNode find(char c, List<CharNode> list) {
+            for (CharNode node : list) {
+                if (node.c == c) {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        /** Initialize your data structure here. */
+        public Trie() {
+            this.head = new CharNode();
+            this.head.next = new ArrayList<>();
+            set = new HashSet<>();
+        }
+
+        /** Inserts a word into the trie. */
+        public void insert(String word) {
+            set.add(word);
+            CharNode cur = this.head;
+            for (char c : word.toCharArray()) {
+                CharNode node = find(c, cur.next);
+                if (node == null) {
+                    CharNode charNode = new CharNode();
+                    charNode.c = c;
+                    charNode.next = new ArrayList<>();
+                    cur.next.add(charNode);
+                    cur = charNode;
+                } else {
+                    cur = node;
+                }
+            }
+        }
+
+        /** Returns if the word is in the trie. */
+        public boolean search(String word) {
+            return set.contains(word);
+        }
+
+        /** Returns if there is any word in the trie that starts with the given prefix. */
+        public boolean startsWith(String prefix) {
+            CharNode cur = this.head;
+            for (char c : prefix.toCharArray()) {
+                CharNode charNode = find(c, cur.next);
+                if (charNode == null) {
+                    return false;
+                } else {
+                    cur = charNode;
+                }
+            }
+            return true;
+        }
+
+        class CharNode {
+            char c;
+            List<CharNode> next;
+        }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/hamming-distance/
+     */
+    public int hammingDistance(int x, int y) {
+        int z = x ^ y;
+        int sum = 0;
+        while (z != 0) {
+            sum += z & 1;
+            z >>>= 1;
+        }
+        return sum;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/permutations/
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> tmp = new ArrayList<>();
+        int[] flag = new int[nums.length];
+        permuteBackTrack(nums, flag, tmp, result);
+        return result;
+    }
+    private void permuteBackTrack(int[] nums, int[] flag, List<Integer> tmp, List<List<Integer>> result) {
+        if (tmp.size() == nums.length) {
+            result.add(new ArrayList<>(tmp));
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (flag[i] == 1) {
+                continue;
+            }
+            tmp.add(nums[i]);
+            flag[i] = 1;
+            permuteBackTrack(nums, flag,tmp, result);
+            tmp.remove(tmp.size() - 1);
+            flag[i] = 0;
         }
     }
 }
