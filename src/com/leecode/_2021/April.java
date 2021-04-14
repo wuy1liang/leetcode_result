@@ -1,5 +1,7 @@
 package com.leecode._2021;
 
+import com.leecode.common.TreeNode;
+
 import java.util.*;
 
 /**
@@ -280,5 +282,35 @@ public class April {
             tmp.remove(tmp.size() - 1);
             flag[i] = 0;
         }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/generate-parentheses/
+     */
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        generateParenthesisBackTrack(0,  n * 2, 0, "", result);
+        return result;
+    }
+    private void generateParenthesisBackTrack(int cur, int max, int score, String tmp, List<String> result) {
+        if (cur == max) {
+            if (score == 0) {
+                result.add(tmp);
+            }
+            return;
+        }
+        if (cur + 1 <= max) {
+            generateParenthesisBackTrack(cur + 1, max, score + 1, tmp + "(", result);
+        }
+        if (score - 1 >= 0) {
+            generateParenthesisBackTrack(cur + 1, max, score - 1, tmp + ")", result);
+        }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        // TODO
     }
 }
