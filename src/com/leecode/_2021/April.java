@@ -308,9 +308,49 @@ public class April {
     }
 
     /**
+     * https://leetcode-cn.com/problems/house-robber-ii/
+     */
+    public int rob(int[] nums) {
+        int len = nums.length;
+        if (len <= 2) {
+            Arrays.sort(nums);
+            return nums[len - 1];
+        }
+
+        int[] dp = new int[len];
+        int result = 0;
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < len - 1; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        }
+        result = dp[len - 2];
+        dp[len - 1] = nums[len - 1];
+        dp[len - 2] = Math.max(nums[len - 1], nums[len - 2]);
+        for (int i = len - 3; i > 0; i--) {
+            dp[i] = Math.max(dp[i + 2] + nums[i], dp[i + 1]);
+        }
+        return Math.max(result, dp[1]);
+    }
+
+    /**
      * https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
      */
     public List<Integer> inorderTraversal(TreeNode root) {
-        // TODO
+        List<Integer> result = new ArrayList<>();
+        inorderTraversalDfs(result, root);
+        return result;
+    }
+    void inorderTraversalDfs(List<Integer> result, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        if (node.left != null) {
+            inorderTraversalDfs(result, node.left);
+        }
+        result.add(node.val);
+        if (node.right != null) {
+            inorderTraversalDfs(result, node.right);
+        }
     }
 }
