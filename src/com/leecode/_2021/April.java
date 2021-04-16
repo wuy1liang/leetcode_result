@@ -353,4 +353,22 @@ public class April {
             inorderTraversalDfs(result, node.right);
         }
     }
+
+    /**
+     * https://leetcode-cn.com/problems/rotate-image/
+     */
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        int index = 0;
+        while (index <= n / 2) {
+            for (int i = index; i < n - 1 - index; i++) {
+                int tmp = matrix[index][i];
+                matrix[index][i] = matrix[n - 1 - i][index];
+                matrix[n - 1 - i][index] = matrix[n - 1 -index][n - 1 - i];
+                matrix[n - 1 -index][n - 1 - i] = matrix[i][n - 1 - index];
+                matrix[i][n - 1 - index] = tmp;
+            }
+            index++;
+        }
+    }
 }
