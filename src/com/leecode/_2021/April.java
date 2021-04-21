@@ -418,4 +418,27 @@ public class April {
         }
         return dp[len];
     }
+
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int left = 1;
+        int[] result = new int[len];
+        result[len - 1] = nums[len - 1];
+        for (int i = len - 2; i > 0; i--) {
+            result[i] = result[i + 1] * nums[i];
+        }
+        for (int i = 0; i < len - 1; i++) {
+            result[i] = result[i + 1] * left;
+            left *= nums[i];
+        }
+        result[len - 1] = left;
+        return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+     */
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+
+    }
 }
