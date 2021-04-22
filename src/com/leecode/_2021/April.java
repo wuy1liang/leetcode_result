@@ -439,6 +439,69 @@ public class April {
      * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
      */
     public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder.length == 0 || inorder.length == 0) {
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[0]);
+        for (int i = 0; i < inorder.length; i++) {
+            if (inorder[i] == preorder[0]) {
+                int[] leftInorder = Arrays.copyOfRange(inorder, 0, i);
+                int[] leftPreorder = Arrays.copyOfRange(preorder, 1, 1 + i);
+                node.left = buildTree(leftPreorder, leftInorder);
+                int[] rightInorder = Arrays.copyOfRange(inorder, i + 1, inorder.length);
+                int[] rightPreorder = Arrays.copyOfRange(preorder, 1 + i, preorder.length);
+                node.right = buildTree(rightPreorder, rightInorder);
+            }
+        }
+        return node;
+    }
 
+    /**
+     * https://leetcode-cn.com/problems/range-sum-query-2d-immutable/
+     */
+    class NumMatrix {
+        int[][] dp;
+        public NumMatrix(int[][] matrix) {
+            int n = matrix.length;
+            int m = matrix[0].length;
+            dp = new int[n + 1][m + 1];
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= m; j++) {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1] + matrix[i - 1][j - 1];
+                }
+            }
+        }
+        public int sumRegion(int row1, int col1, int row2, int col2) {
+            return dp[row2 + 1][col2 + 1] + dp[row1][col1] - dp[row2 + 1][col1] - dp[row1][col2 + 1];
+        }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/solution/
+     */
+    public int maxSumSubmatrix(int[][] matrix, int k) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[][] dp = new int[n + 1][m + 1];
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1] + matrix[i - 1][j - 1];
+            }
+        }
+        int result = Integer.MIN_VALUE;
+        for (int top = 1; top <= n; top++) {
+            for (int bot = top; bot <= n; bot++) {
+                TreeSet<Integer> set = new TreeSet<>();
+                for (int right = 0; right <= m; right++) {
+                    int rightSum = dp[bot][right] - dp[top - 1][right];
+                    Integer leftSum = set.ceiling(rightSum - k);
+                    if (leftSum != null) {
+                      result = Math.max(rightSum - leftSum, result);
+                    }
+                    set.add(rightSum);
+                }
+            }
+        }
+        return result;
     }
 }
