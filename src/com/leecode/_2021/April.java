@@ -504,4 +504,76 @@ public class April {
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/combination-sum/
+     */
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> tmp = new ArrayList<>();
+        Arrays.sort(candidates);
+        backTrackCombinationSum(candidates, target, result, tmp, 0, 0);
+        return result;
+    }
+    private void backTrackCombinationSum(int[] candidates, int target, List<List<Integer>> result, List<Integer> tmp, int count, int start) {
+        if (count == target) {
+            result.add(new ArrayList<>(tmp));
+            return;
+        }
+        if (count > target) {
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            tmp.add(candidates[i]);
+            backTrackCombinationSum(candidates, target, result, tmp, count + candidates[i], i);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/top-k-frequent-elements/
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(map::get));
+        for (Integer num : map.keySet()) {
+            priorityQueue.add(num);
+            if (priorityQueue.size() > k) {
+                priorityQueue.remove();
+            }
+        }
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) {
+            result[i] = priorityQueue.remove();
+        }
+        return result;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/convert-bst-to-greater-tree/
+     */
+    public TreeNode convertBST(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        dfsConvertBST(root);
+        return root;
+    }
+    private int convertBSTSum = 0;
+    private void dfsConvertBST(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        if (root.right != null) {
+            dfsConvertBST(root.right);
+        }
+        convertBSTSum += root.val;
+        root.val = convertBSTSum;
+        if (root.left != null) {
+            dfsConvertBST(root.left);
+        }
+    }
 }
