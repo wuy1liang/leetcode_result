@@ -619,4 +619,47 @@ public class April {
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/3sum/
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        int len = nums.length;
+        if(len < 3) {
+            return result;
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i < len; i++) {
+            if (nums[i] > 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int left = i + 1;
+            int right = len - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    do {
+                        left++;
+                    } while (left < len && nums[left] == nums[left - 1]);
+                    do {
+                        right--;
+                    } while (right >= 0 && nums[right] == nums[right + 1]);
+                } else if (sum > 0) {
+                    do {
+                        right--;
+                    } while (right >= 0 && nums[right] == nums[right + 1]);
+                } else {
+                    do {
+                        left++;
+                    } while (left < len && nums[left] == nums[left - 1]);
+                }
+            }
+        }
+        return result;
+    }
 }
