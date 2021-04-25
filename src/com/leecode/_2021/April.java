@@ -592,4 +592,31 @@ public class April {
         }
         return dp[target];
     }
+
+    /**
+     * https://leetcode-cn.com/problems/increasing-order-search-tree/
+     */
+    public TreeNode increasingBST(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode result = null;
+        if (root.left != null) {
+            result = increasingBST(root.left);
+        }
+        TreeNode node = new TreeNode(root.val);
+        if (result != null) {
+            TreeNode last = result;
+            while (last.right != null) {
+                last = last.right;
+            }
+            last.right = node;
+        } else {
+            result = node;
+        }
+        if (root.right != null) {
+            node.right = increasingBST(root.right);
+        }
+        return result;
+    }
 }
