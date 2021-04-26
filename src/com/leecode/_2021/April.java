@@ -692,4 +692,42 @@ public class April {
         }
         return right;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+     */
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/house-robber-iii/
+     */
+    public int rob(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftRob;
+        int rightRob;
+        int rootVal = root.val;
+        if (root.left != null) {
+            leftRob = rob(root.left);
+            rootVal += root.left.left != null? root.left.left.val: 0;
+            rootVal += root.left.right != null? root.left.right.val: 0;
+        } else {
+            leftRob = 0;
+        }
+        if (root.right != null) {
+            rightRob = rob(root.right);
+            rootVal += root.right.left != null? root.right.left.val: 0;
+            rootVal += root.right.right != null? root.right.right.val: 0;
+        } else {
+            rightRob = 0;
+        }
+        root.val = Math.max(leftRob + rightRob, rootVal);
+        return root.val;
+    }
 }
