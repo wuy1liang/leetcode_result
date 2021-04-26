@@ -662,4 +662,34 @@ public class April {
         }
         return result;
     }
+
+    /**
+     * https://leetcode-cn.com/problems/capacity-to-ship-packages-within-d-days/
+     */
+    public int shipWithinDays(int[] weights, int D) {
+        int left = 0;
+        int right = 0;
+        for (int w : weights) {
+            left = Math.max(left, w);
+            right += w;
+        }
+        while (left < right) {
+            int mid = (right + left) / 2;
+            int d = 1;
+            int count = 0;
+            for (int weight : weights) {
+                if (count + weight > mid) {
+                    d++;
+                    count = 0;
+                }
+                count += weight;
+            }
+            if (d <= D) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return right;
+    }
 }
